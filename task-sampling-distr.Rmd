@@ -1,0 +1,214 @@
+---
+title: "Task 2: Sampling distributions"
+---
+
+<!--JavaScript function for a button to show/hide solutions-->
+<script>
+function showSolution(exercise) {
+    var x = document.getElementById(exercise);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+## Exercise 1: Sampling distribution of mean and median
+
+We consider two estimators for the expectation $\mu$ of a normal distribution:  
+
+* the sample mean
+* the sample median (since a normal distribution is symmetric about its 
+  expected value, expectation and median coincide)
+
+(a) Draw 1000 samples of sample size 10 from a $\mathcal{N}(0,3)$ distribution
+    and compute, for each sample, the two previously mentioned estimates for 
+    $\mu (=0)$. Save each of these in a vector of length 1000 and compare their
+    variances.
+
+(b) Repeat the previous exercise, but with a $t_{3}$-distribution (i.e., 
+    Student t-distribution with 3 degrees of freedom). What has changed with 
+    respect to the previous task, and how can this be explained?
+
+
+<!--Solution to exercise 1-->
+
+<button onclick='showSolution("solutionEx1a")'>Show/hide solution (a)</button>
+
+<div id="solutionEx1a" style = "display:none">
+
+(a)
+     
+```{r}
+m <- 1000  # number of samples
+mean_normal <- numeric(m)
+median_normal <- numeric(m)
+
+n <- 10    # sample size
+for (i in 1:m) {
+    x <- rnorm(n = n, mean = 0, sd = sqrt(3))
+    mean_normal[i] <- mean(x)
+    median_normal[i] <- median(x)
+}
+
+# Variance:
+var(mean_normal)
+var(median_normal)
+```
+    
+</div>
+
+<button onclick='showSolution("solutionEx1b")'>Show/hide solution (b)</button>
+
+<div id="solutionEx1b" style = "display:none">
+
+(b) 
+
+```{r}
+mean_t3 <- numeric(m)
+median_t3 <- numeric(m)
+
+for (i in 1:m) {
+    x <- rt(n = n, df = 3)
+    mean_t3[i] <- mean(x)
+    median_t3[i] <- median(x)
+}
+
+# Variance:
+var(mean_t3)
+var(median_t3)
+```
+
+For the normal distribution, the variance of the mean is smaller than for the 
+median. According to this criterion, the mean is a better estimator  for the
+location parameter $\mu$ than the sample median if the data come from a 
+$\mathcal{N}(\mu,\sigma^2)$ distribution.
+
+In contrast, for the $t_3$ distribution, the mean has a larger variance than 
+the median. Since the t distribution is very similar to the normal distribution,
+but with heavier tails, simulating data with this distribution is often 
+considered as a "misspecification" of the normal distribution model.
+
+In summary, a slight change of the underlying distribution has a much more 
+pronounced effect on the sample mean than on the sample median. For this reason, 
+the sample median is described as more robust than the sample mean.
+
+</div>
+
+------------------------------------------------------------
+
+## Exercise 2: Sampling distribution of the dispersion index
+
+A Poisson distributed random variable $X\sim\text{Pois}(\lambda)$ has the 
+property $\mathbb{E}[X]=\text{Var}[X] = \lambda$, i.e. a 
+variance-to-expectation-ratio of 1. Consider the dispersion index (sample variance
+divided by sample mean) as an empirical analogue of the variance-to-expectation-ratio.
+A classical result by Fisher (1922) states that for a Poisson-distributed random
+sample of size $n$, $(n-1)$ times the dispersion index is approximately 
+$\chi^2$-distributed with $(n-1)$ degrees of freedom. In this exercise, we will 
+illustrate this result by simulation.
+ 
+(a) Simulate 1000 samples of sample size 10 from a $X\sim\text{Pois}(100)$ 
+    distribution and visualize the sampling distribution of the dispersion index.
+(b) Graphically compare the distribution of 9 times the dispersion index
+    against the density of a $\chi^2_{9}$ distribution.
+
+<!--Solution to exercise 2-->
+
+<button onclick='showSolution("solutionEx2a")'>Show/hide solution (a)</button>
+
+<div id="solutionEx2a" style = "display:none">
+ 
+(a)
+
+```{r}
+m <- 1000
+n <- 10
+lambda <- 100
+disp_idx <- numeric(m)
+for (i in 1:m) {
+    x <- rpois(n = n, lambda = lambda)
+    disp_idx[i] <- var(x)/mean(x)
+}
+```
+
+</div>
+
+<button onclick='showSolution("solutionEx2b")'>Show/hide solution (b)</button>
+
+<div id="solutionEx2b" style = "display:none">
+
+(b) 
+
+```{r}
+# empirical distribution
+hist((n-1)*disp_idx, xlab = "(n-1) * Dispersion index", main = "", freq = FALSE)
+
+# theoretical distribution
+xplot <- (n-1)*seq(min(disp_idx),max(disp_idx), length = 100)
+yplot <- dchisq(xplot, df = n-1)
+lines(xplot,yplot, col = "red")
+```
+
+</div>
+
+------------------------------------------------------------
+
+## Exercise 3: Exponential and Poisson distribution
+
+In this exercise, we consider the link between exponential and Poisson random
+variables, sketched in the lecture. To this end, do the following simulation 
+experiment:
+
+*   Fix a time horizon $T$ (consider $T=10$)
+*   Simulate $\tau_i\sim\text{Exp}(\lambda)$, until $\sum_{i=1}^n \tau_i >T$ 
+    (consider $\lambda=1$)
+*   Save $k:=n-1$ (number of events until time $T$)
+
+Repeat this procedure $N=1000$ times and compare the distribution of $k$ (the number
+of counts). Grapically compare the frequency distribution with a $\text{Poiss}(\lambda T)$ 
+distribution.
+
+<!--Solution to exercise 3-->
+
+<button onclick='showSolution("solutionEx3")'>Show/hide solution</button>
+
+<div id="solutionEx3" style = "display:none">
+ 
+```{r}
+TT <- 10
+rate <- 1
+N <- 1000
+counts <- numeric(N)
+for (i in 1:N) {
+    t <- 0
+    n <- 0
+    while (t < TT) {
+        tau <- rexp(1, rate = rate)
+        t <- t + tau
+        n <- n + 1
+    }
+    counts[i] <- n-1
+}
+
+obs  <- table(counts)/length(counts)
+pred <- setNames(dpois(0:max(counts), lambda = rate*TT), 0:max(counts))
+
+# For graphical representation, the missing observed categories have to be set to 0
+obs_completed <- setNames(rep(0,max(counts)+1L), 0:max(counts))
+obs_completed[names(obs)] <- obs
+obspred <- rbind(obs_completed,pred)
+
+# Grouped bar plot
+barplot(obspred, beside = TRUE, col = c("red","blue"))
+legend("topright", 
+       legend = c("Rel. freq.","Poisson pmf"),
+       col = c("red","blue"),
+       lty = c(1, 1),
+       cex = 0.8)
+```
+
+</div>
+

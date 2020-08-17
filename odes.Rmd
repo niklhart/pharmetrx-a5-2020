@@ -1,0 +1,134 @@
+---
+title: "Solving ODEs"
+---
+
+This tutorial describes how to implement and solve an ODE system in R. 
+The base R installation has no ODE solving capacities, hence a package has to 
+be used. Here, we will use the most frequently used one, the `deSolve` package.
+
+First install (if not done yet) and load the package:
+
+```{r, eval = FALSE}
+install.packages("deSolve")
+```
+```{r}
+library("deSolve")
+```
+
+## Syntax of function `ode`
+
+Function `ode` solves ODE systems. It has the following syntax:
+
+Its arguments are:
+
+* `y`, the initial values
+* `times`, 
+* `func`, the right-hand side (an R function),
+* `parms`, a parameter vector used in function `func` (useful e.g. for optimization)
+
+Additionally, an ODE solver can be defined, but there is often no need to 
+customize the default solver "lsoda", which solves both non-stiff and stiff ODE
+systems efficiently.
+
+### Syntax of argument `func`
+
+Argument `func` needs to be a function with the following syntax (see tutorial
+"Defining a function" for general information about how to define functions
+yourself):
+
+```{r}
+func <- function(t, y, p) {
+    #
+    # computation
+    #
+    list(dy) # return value as a one-element list
+}
+```
+
+It must have three arguments (in that order):
+
+* the current time `t` during solving the ODE 
+  (must be specified even for time-independent systems, where `t` will be unused)
+* `y`, the state vector (a numeric vector)
+* `p`, the parameter vector
+
+The ODE right-hand side must return a length one list containing the vector of 
+derivatives `dy`, **not** the derivatives themselves!
+
+### Ouput of `ode`
+
+Function `ode` returns a matrix, above denoted `out`, containing 
+
+* the output times as first column,
+* the different states of the ODE system as subsequent columns
+
+If the initial condition `y` was named, so will be the columns of this matrix.
+
+## Examples
+
+### An easy example
+
+Consider the ODE $y' = - \,y, y(0) = 1$ (exponential decay), 
+to be solved during the time interval $[0,10]$:
+
+```{r}
+y0 <- c(y=1) # name this --> output named
+t  <- 0:10
+rhs <- function(t, y, p) {
+    dy <- -y
+    list(dy)
+}
+out <- ode(y = y0, times = t, func = rhs)
+out
+```
+
+Here, there are no parameters, and argument `parms` of function `ode` can be 
+left unspecified. In contrast, the third argument, `p`, of the ODE right-hand side 
+function must be given, although that argument is unused.
+
+### A more complex example
+
+Now consider the ODE system
+$$x' = -a\,x + b\,y,\quad y' = -c\,y + d\,x$$
+with initial condition $x(0)=1$, $y(0)=2$, parameters $a=b=c=d=1$ and timespan
+$[0,10]$:
+
+```{r}
+y0 <- c(x=1,y=2) # name this --> output named
+t  <- 0:10
+p <- c(a=1,b=1,c=1,d=1)
+rhs2 <- function(t, Y, p) { # Y = (x,y)
+    dx <- - p["a"] * Y["x"] + p["b"] * Y["y"]
+    dy <- - p["c"] * Y["y"] + p["d"] * Y["x"]
+    dY <- c(dx,dy)
+    list(dY)
+}
+out <- ode(y = y0, times = t, func = rhs2, parms = p)
+out
+```
+
+Here, to make the code easier to read, it is good practice to use named states 
+and parameters and refer to their names within the right-hand side function.
+
+#### Alternative implementation of the right-hand side
+
+An alternative style of encoding the right-hand side (you can also find this in
+the Examples section of the function help for `ode`) uses function `with`:
+
+```{r, eval = FALSE}
+rhs2 <- function(t, Y, p)  {
+  with(as.list(c(p, Y)), {
+    dx <- -a * x + b * y
+    dy <- -c * y + d * x
+    dY <- c(dx, dy)
+    list(dY)
+  })
+}
+```
+
+This style makes the actual computations easier to read. However, function `with`
+uses non-standard evaluation, which has its downsides, too, for example:
+
+* `p` and `Y` are not allowed to have overlapping names
+* error messages are more difficult to read
+* a computational overhead
