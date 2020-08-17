@@ -52,12 +52,12 @@ It must have three arguments (in that order):
 * `y`, the state vector (a numeric vector)
 * `p`, the parameter vector
 
-The ODE right-hand side must return a length one list containing the vector of 
-derivatives `dy`, **not** the derivatives themselves!
+The ODE right-hand side must return a (length one) *list containing the* vector of 
+derivatives `dy`, **not** the vector of derivatives itself!
 
 ### Ouput of `ode`
 
-Function `ode` returns a matrix, above denoted `out`, containing 
+Function `ode` returns a matrix, below denoted `out`, containing 
 
 * the output times as first column,
 * the different states of the ODE system as subsequent columns

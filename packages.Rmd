@@ -13,6 +13,11 @@ In fact, the base R installation is already organized in packages, namely
 
 We can see this by looking at the search path:
 
+```{r, echo = FALSE}
+library("deSolve")
+detach("package:deSolve")
+```
+
 ```{r}
 search()
 ```

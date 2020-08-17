@@ -540,11 +540,11 @@ div.tocify {
 <li><code>y</code>, the state vector (a numeric vector)</li>
 <li><code>p</code>, the parameter vector</li>
 </ul>
-<p>The ODE right-hand side must return a length one list containing the vector of derivatives <code>dy</code>, <strong>not</strong> the derivatives themselves!</p>
+<p>The ODE right-hand side must return a (length one) <em>list containing the</em> vector of derivatives <code>dy</code>, <strong>not</strong> the vector of derivatives itself!</p>
 </div>
 <div id="ouput-of-ode" class="section level3">
 <h3>Ouput of <code>ode</code></h3>
-<p>Function <code>ode</code> returns a matrix, above denoted <code>out</code>, containing</p>
+<p>Function <code>ode</code> returns a matrix, below denoted <code>out</code>, containing</p>
 <ul>
 <li>the output times as first column,</li>
 <li>the different states of the ODE system as subsequent columns</li>

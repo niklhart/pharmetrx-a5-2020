@@ -516,10 +516,9 @@ div.tocify {
 <p>In fact, the base R installation is already organized in packages, namely <code>base</code>, <code>methods</code>, <code>datasets</code>, <code>utils</code>, <code>grDevices</code>, <code>graphics</code>, and <code>stats</code>.</p>
 <p>We can see this by looking at the search path:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">search</span>()</span></code></pre></div>
-<pre><code>##  [1] &quot;.GlobalEnv&quot;        &quot;package:deSolve&quot;   &quot;package:stats&quot;    
-##  [4] &quot;package:graphics&quot;  &quot;package:grDevices&quot; &quot;package:utils&quot;    
-##  [7] &quot;package:datasets&quot;  &quot;package:methods&quot;   &quot;Autoloads&quot;        
-## [10] &quot;package:base&quot;</code></pre>
+<pre><code>## [1] &quot;.GlobalEnv&quot;        &quot;package:stats&quot;     &quot;package:graphics&quot; 
+## [4] &quot;package:grDevices&quot; &quot;package:utils&quot;     &quot;package:datasets&quot; 
+## [7] &quot;package:methods&quot;   &quot;Autoloads&quot;         &quot;package:base&quot;</code></pre>
 <p>In addition to the above mentioned packages, there are a few additional elements on the search path which are not important for us now.</p>
 </div>
 <div id="install-and-load-a-package" class="section level2">
@@ -540,10 +539,10 @@ div.tocify {
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">ggplot</span>()</span></code></pre></div>
 <p>We can also see that the <code>ggplot2</code> packages was added to the search path:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">search</span>()</span></code></pre></div>
-<pre><code>##  [1] &quot;.GlobalEnv&quot;        &quot;package:ggplot2&quot;   &quot;package:deSolve&quot;  
-##  [4] &quot;package:stats&quot;     &quot;package:graphics&quot;  &quot;package:grDevices&quot;
-##  [7] &quot;package:utils&quot;     &quot;package:datasets&quot;  &quot;package:methods&quot;  
-## [10] &quot;Autoloads&quot;         &quot;package:base&quot;</code></pre>
+<pre><code>##  [1] &quot;.GlobalEnv&quot;        &quot;package:ggplot2&quot;   &quot;package:stats&quot;    
+##  [4] &quot;package:graphics&quot;  &quot;package:grDevices&quot; &quot;package:utils&quot;    
+##  [7] &quot;package:datasets&quot;  &quot;package:methods&quot;   &quot;Autoloads&quot;        
+## [10] &quot;package:base&quot;</code></pre>
 <p>However, conflicts can occur if two loaded packages define a function with the same name. In this case, a warning is displayed and only the function defined in the package loaded most recently can be called without the scoping operator.</p>
 </div>
 <div id="important-packages" class="section level2">

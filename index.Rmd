@@ -6,10 +6,13 @@ output:
 ---
 
 This website is part of the online training material for the PharMetrX A5 module
-2020. 
-
-* link to PharMetrX website? 
-* licence info?
+2020, part of the PharMetrX graduate research training program 
+(see [here](https://www.pharmetrx.de/) for general information about PharMetrX
+and [here](https://www.pharmetrx.de/training/curriculum/statistics-data-analysis.html)
+for an overview of the content covered in the module). The material has been created by Niklas Hartung, 
+University of Potsdam (2020), and is distributed under the terms 
+of the Creative Commons License (CC BY-NC-SA 3.0): 
+Attribution-NonCommercial-ShareAlike 3.0 Unported.
 
 This self-study hands-on material, to be prepared *before* the one-week
 module (31 August -- 4 September 2020), consists of two parts:
@@ -17,8 +20,11 @@ module (31 August -- 4 September 2020), consists of two parts:
 - **Tutorials** covering the R programming skills required during the hands-on 
   sessions. Depending on your current experience with R, you might be able to 
   skip parts of this material. Below, an overview on the tutorial content is given.
-- **Tasks** (hands-on) based on Wilhelm's screencasts. This material is 
-  mandatory. *Zoom meeting about the tasks before the module?*
+  The tutorials themselves can be accessed by clicking on "R Tutorials" in the header.
+- **Tasks** (hands-on) based on Wilhelm's screencasts. Please complete this material before
+  the start of the one-week module. Again, the tutorials can be accessed through the 
+  navigation bar at the top. You can check your results against the provided reference
+  solutions.
 
 The following topics are covered in the R tutorials:
 
