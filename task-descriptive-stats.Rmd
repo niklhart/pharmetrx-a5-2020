@@ -520,7 +520,7 @@ described above for discrete variables, e.g. *coloring* or
     ```
     
     ```{r}
-    smok <- subset(birthwt, smoke = "yes")
+    smok <- subset(birthwt, smoke == "yes")
     plot(smok$age, smok$bwt, xlab = "Mother's age in years",
          ylab = "Birth weight in grams",
          main = "Association for smoking mothers")

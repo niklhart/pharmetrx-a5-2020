@@ -530,13 +530,13 @@ div.tocify {
 <p>Let’s give an example:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)         <span class="co"># normally distributed pseudorandom number</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>x</span></code></pre></div>
-<pre><code>## [1] 0.9503557</code></pre>
+<pre><code>## [1] -0.9016708</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
 <span id="cb5-2"><a href="#cb5-2"></a>    <span class="kw">print</span>(<span class="st">&quot;x is positive&quot;</span>)</span>
 <span id="cb5-3"><a href="#cb5-3"></a>} <span class="cf">else</span> {    </span>
 <span id="cb5-4"><a href="#cb5-4"></a>    <span class="kw">print</span>(<span class="st">&quot;x is negative&quot;</span>)</span>
 <span id="cb5-5"><a href="#cb5-5"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;x is positive&quot;</code></pre>
+<pre><code>## [1] &quot;x is negative&quot;</code></pre>
 <p>The result of an if statement can also be assigned into a variable. For example, the above code can be rewritten as follows:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>text &lt;-<span class="st"> </span><span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
 <span id="cb7-2"><a href="#cb7-2"></a>    <span class="st">&quot;x is positive&quot;</span></span>
@@ -544,7 +544,7 @@ div.tocify {
 <span id="cb7-4"><a href="#cb7-4"></a>    <span class="st">&quot;x is negative&quot;</span></span>
 <span id="cb7-5"><a href="#cb7-5"></a>}</span>
 <span id="cb7-6"><a href="#cb7-6"></a><span class="kw">print</span>(text)</span></code></pre></div>
-<pre><code>## [1] &quot;x is positive&quot;</code></pre>
+<pre><code>## [1] &quot;x is negative&quot;</code></pre>
 <p>If an if statement is used that way without any else-statement and the condition is not met, the resulting value will be <code>NULL</code>.</p>
 <p>If/else statements can also be chained, covering more than two possible outcomes:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) {</span>
@@ -616,7 +616,7 @@ div.tocify {
 <span id="cb18-8"><a href="#cb18-8"></a>    }</span>
 <span id="cb18-9"><a href="#cb18-9"></a>}</span>
 <span id="cb18-10"><a href="#cb18-10"></a>nfail</span></code></pre></div>
-<pre><code>## [1] 26</code></pre>
+<pre><code>## [1] 5</code></pre>
 </div>
 </div>
 
