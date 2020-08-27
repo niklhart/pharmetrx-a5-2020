@@ -36,7 +36,7 @@ navbar:
         - text: "Probability & Sampling"
           href: probability.html
         - text: "Solving ODEs"
-          href: ODEs.html
+          href: odes.html
         - text: "Optimization"
           href: optimization.html
     - text: "Task 1: Descriptive statistics"
